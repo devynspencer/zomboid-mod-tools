@@ -114,6 +114,7 @@ function Deploy-ZomboidMod {
     }
 
     $DeploymentRoot = Split-Path -Path $DeploymentPath
+
     Write-Verbose "Deploying mod [$($ModInfo.Name)] to [$DeploymentRoot]"
 
     # Verify deployment location is suitable
@@ -127,25 +128,7 @@ function Deploy-ZomboidMod {
         Remove-Item -Path $DeploymentPath -Force -Recurse
     }
 
-    # Copy mod directory contents, excluding any directories supplied to Exclude param
-    $ModFiles = Get-ChildItem -Path $SourcePath -Force -Exclude $Exclude
-
-    # Copy included mod files
-    foreach ($Path in $ModFiles) {
-        $CopyDestination = [IO.Path]::Join($DeploymentPath, $Path.Name)
-
-        Write-Verbose "Copying [$($Path.FullName)] to [$DeployLocation] directory"
-        Write-Verbose "Current destination is [$CopyDestination]`n"
-
-        $CopyParams = @{
-            Path = $Path.FullName
-            Destination = $DeploymentPath
-            Force = $true
-            Recurse = $true
-        }
-
-        Copy-Item @CopyParams
-    }
+    robocopy $SourcePath $DeploymentPath /xd $Exclude /e
 
     Write-Verbose "Deployment complete!`n`n"
 
