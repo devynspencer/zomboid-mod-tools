@@ -1,4 +1,5 @@
 . "$PSScriptRoot\Get-ZomboidModInfo.ps1"
+
 function Find-ZomboidMod {
     param (
         # Name or (part of the name) of a mod. Should match the name of the mod directory
