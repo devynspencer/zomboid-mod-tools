@@ -70,6 +70,7 @@
         'Find-ZomboidMod'
         'Deploy-ZomboidMod'
         'Remove-ZomboidMod'
+        'Start-Zomboid'
         'Show-ZomboidLog'
         'Install-SteamCmd'
     )
