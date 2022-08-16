@@ -40,7 +40,9 @@ function Get-ZomboidModInfo {
                 Uri = (Select-String @SelectParams -Pattern 'url=(.*)').Matches
             }
 
-            $ModInfo = @{}
+            $ModInfo = @{
+                Path = $ModInfoFile
+            }
 
             # Skip null properties to avoid scary errors
             foreach ($Property in $Matches.Keys) {
