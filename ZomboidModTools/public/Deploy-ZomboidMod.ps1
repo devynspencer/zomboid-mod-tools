@@ -128,7 +128,15 @@ function Deploy-ZomboidMod {
         Remove-Item -Path $DeploymentPath -Force -Recurse
     }
 
-    robocopy $SourcePath $DeploymentPath /xd $Exclude /e
+    $CopyParams = @{
+        FilePath = 'robocopy.exe'
+        ArgumentList = @("$SourcePath", "$DeploymentPath", '/xd', "$Exclude", '/e')
+        WorkingDirectory = $SourcePath
+        NoNewWindow = $true
+        Wait = $true
+    }
+
+    Start-Process @CopyParams
 
     Write-Verbose "Deployment complete!`n`n"
 
