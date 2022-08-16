@@ -1,6 +1,7 @@
 . "$PSScriptRoot\Find-ZomboidMod.ps1"
 
 function Remove-ZomboidMod {
+    [CmdletBinding(SupportsShouldProcess)]
     param (
         [Parameter(Mandatory)]
         $ModName,
@@ -46,15 +47,15 @@ function Remove-ZomboidMod {
             throw "No mod.info file found at expected location: [$ModInfoPath]. Is this a Zomboid Mod?"
         }
 
-        Write-Verbose "Removing mod [$($Mod.Name) ($($Mod.Id))] from [$ModRoot]"
+        if ($PSCmdlet.ShouldProcess($ModRoot)) {
+            $RemoveParams = @{
+                Path = $ModRoot
+                Force = $true
+                Recurse = $true
+            }
 
-        $RemoveParams = @{
-            Path = $ModRoot
-            Force = $true
-            Recurse = $true
+            Remove-Item @RemoveParams
         }
-
-        Remove-Item @RemoveParams
 
         if ($PassThru) {
             # Return mod info
