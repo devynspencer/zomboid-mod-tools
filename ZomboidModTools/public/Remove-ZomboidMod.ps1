@@ -38,13 +38,14 @@ function Remove-ZomboidMod {
 
     # Remove mods
     foreach ($Mod in $Mods) {
-        # Parse mod.info file for mod information
         $ModRoot = Split-Path -Path $Mod.Path
-        $ModInfoPath = [IO.Path]::Join($ModRoot, 'mod.info')
+
+        # TODO: Is this necessary? Find-ZomboidMod already parses the mod.info file, so we can assume
+        # the directory is a mod directory -- perhaps testing something else would be less redundant?
 
         # Ensure target directory is a Zomboid mod directory (contains a mod.info file)
-        if (!(Test-Path -Path $ModInfoPath)) {
-            throw "No mod.info file found at expected location: [$ModInfoPath]. Is this a Zomboid Mod?"
+        if (!(Test-Path -Path $Mod.Path)) {
+            throw "No mod.info file found at expected location: [$($Mod.Path)]. Is this a Zomboid Mod?"
         }
 
         if ($PSCmdlet.ShouldProcess($ModRoot)) {
