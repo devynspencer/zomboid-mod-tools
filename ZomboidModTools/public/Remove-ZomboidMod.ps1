@@ -48,6 +48,7 @@ function Remove-ZomboidMod {
             throw "No mod.info file found at expected location: [$($Mod.Path)]. Is this a Zomboid Mod?"
         }
 
+        # Remove mod directory
         if ($PSCmdlet.ShouldProcess($ModRoot)) {
             $RemoveParams = @{
                 Path = $ModRoot
