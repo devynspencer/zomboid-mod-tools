@@ -138,6 +138,7 @@ function Deploy-ZomboidMod {
 
     Start-Process @CopyParams
 
+    Write-Verbose "Mod files deployed to [$DeploymentRoot]"
     Write-Verbose "Deployment complete!`n`n"
 
     # Return path to deployed mod directory
