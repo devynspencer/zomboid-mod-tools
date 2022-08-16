@@ -15,7 +15,10 @@ function Remove-ZomboidMod {
         $LocalModsRoot = "$env:USERPROFILE\Zomboid\mods",
 
         [ValidateScript({ Test-Path $_ })]
-        $WorkshopModsRoot = 'C:\Program Files (x86)\Steam\steamapps\workshop\content\108600'
+        $WorkshopModsRoot = 'C:\Program Files (x86)\Steam\steamapps\workshop\content\108600',
+
+        [switch]
+        $PassThru
     )
 
     # Find mods matching specified criteria
@@ -53,7 +56,9 @@ function Remove-ZomboidMod {
 
         Remove-Item @RemoveParams
 
-        # Return mod info
-        $Mod
+        if ($PassThru) {
+            # Return mod info
+            $Mod
+        }
     }
 }
