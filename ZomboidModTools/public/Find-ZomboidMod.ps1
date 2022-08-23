@@ -16,9 +16,15 @@ function Find-ZomboidMod {
 
     Write-Verbose "Looking for mods containing name: [$ModName]"
 
-    $ModRootPath = (Get-ZomboidModLocation -Location $Location).Path
+    $ChildParams = @{
+        Path = (Get-ZomboidModLocation -Location $Location).Path
+        Filter = 'mod.info'
+        File = $true
+        Recurse = $true
+        Depth = 3
+    }
 
-    $ModInfoFiles = Get-ChildItem -Path $ModRootPath -Recurse -Depth 3 -Filter 'mod.info'
+    $ModInfoFiles = Get-ChildItem @ChildParams
 
     foreach ($File in $ModInfoFiles) {
         $ModInfo = Get-ZomboidModInfo -Path $File.FullName
