@@ -5,6 +5,10 @@ function Get-ZomboidModList {
         [string[]]
         $Name,
 
+        # Match part of a modlist name
+        [switch]
+        $MatchAnyKeyword,
+
         # Path of modlists file
         $Path = "$env:USERPROFILE\Zomboid\Lua\saved_modlists.txt"
     )
@@ -40,7 +44,12 @@ function Get-ZomboidModList {
 
             # Handle exact and partial matches. Note order of operators when using -like and -match
             $Name | foreach {
-                if ($ModList.Name -like $_) {
+                if ($MatchAnyKeyword -and ($ModList.Name -match $_)) {
+                    Write-Verbose "[$($ModList.Name)] matched regex [$_]"
+                    $Matched = $true
+                }
+
+                elseif ($ModList.Name -like $_) {
                     Write-Verbose "[$($ModList.Name)] matched wildcard [$_]"
                     $Matched = $true
                 }
