@@ -4,7 +4,6 @@
 function Find-ZomboidMod {
     param (
         # Name or (part of the name) of a mod. Should match the name of the mod directory
-        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         $ModName,
 
@@ -13,8 +12,6 @@ function Find-ZomboidMod {
         [ValidateSet('User', 'Local', 'Workshop')]
         $Location = 'User',
     )
-
-    Write-Verbose "Looking for mods containing name: [$ModName]"
 
     $ChildParams = @{
         Path = (Get-ZomboidModLocation -Location $Location).Path
@@ -30,12 +27,16 @@ function Find-ZomboidMod {
         $ModInfo = Get-ZomboidModInfo -Path $File.FullName
         $ModDirectory = Split-Path -Path $File.FullName -Parent
 
-        if ($ModInfo.Name -match $ModName) {
+        if ($PSBoundParameters.ContainsKey('ModName') -and ($ModInfo.Name -match $ModName)) {
             Write-Verbose "Found mod matching [$ModName]: $($ModInfo.Name)`n"
             Write-Verbose "[$ModName] info file: $($File.FullName)"
             Write-Verbose "[$ModName] directory: $ModDirectory"
             Write-Verbose "`n$($ModInfo | ConvertTo-Json)"
 
+            $ModInfo
+        }
+
+        else {
             $ModInfo
         }
     }
