@@ -1,9 +1,15 @@
 function Get-ZomboidModList {
     [CmdletBinding()]
     param (
+        # Name of a modlist
+        [string[]]
+        $Name,
+
         # Path of modlists file
         $Path = "$env:USERPROFILE\Zomboid\Lua\saved_modlists.txt"
     )
+
+    Write-Verbose "Filtering for mod lists named [$Name]"
 
     # Parse specified modlists file
     $Content = Get-Content -Path $Path
@@ -28,6 +34,15 @@ function Get-ZomboidModList {
             Loader = $Values[0].Split(':')[1]
         }
 
-        $ModList
+
+        # Filter for modlists by name
+        if ($PSBoundParameters.ContainsKey('Name') -and ($ModList.Name -in $Name)) {
+            Write-Verbose "Including matching modlist: [$($ModList.Name)]"
+            $ModList
+        }
+
+        else {
+            $ModList
+        }
     }
 }
