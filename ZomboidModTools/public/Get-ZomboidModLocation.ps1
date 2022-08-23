@@ -19,6 +19,7 @@ function Get-ZomboidModLocation {
         [pscustomobject] @{
             Name = $LocationName
             Path = $Path
+            Exists = Test-Path -Path $Path
         }
     }
 }
