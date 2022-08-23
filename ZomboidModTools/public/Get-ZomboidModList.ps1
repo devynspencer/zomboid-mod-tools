@@ -1,7 +1,7 @@
 function Get-ZomboidModList {
     [CmdletBinding()]
     param (
-        # Name of a modlist
+        # Name of a modlist; wildcards supported
         [string[]]
         $Name,
 
@@ -9,7 +9,7 @@ function Get-ZomboidModList {
         $Path = "$env:USERPROFILE\Zomboid\Lua\saved_modlists.txt"
     )
 
-    Write-Verbose "Filtering for mod lists named [$Name]"
+    Write-Verbose "Filtering for mod lists matching [$Name]"
 
     # Parse specified modlists file
     $Content = Get-Content -Path $Path
@@ -34,11 +34,28 @@ function Get-ZomboidModList {
             Loader = $Values[0].Split(':')[1]
         }
 
-
         # Filter for modlists by name
-        if ($PSBoundParameters.ContainsKey('Name') -and ($ModList.Name -in $Name)) {
-            Write-Verbose "Including matching modlist: [$($ModList.Name)]"
-            $ModList
+        if ($PSBoundParameters.ContainsKey('Name')) {
+            $Matched = $false
+
+            # Handle exact and partial matches. Note order of operators when using -like and -match
+            $Name | foreach {
+                if ($ModList.Name -like $_) {
+                    Write-Verbose "[$($ModList.Name)] matched wildcard [$_]"
+                    $Matched = $true
+                }
+
+                elseif ($ModList.Name -eq $_) {
+                    Write-Verbose "[$($ModList.Name)] matched [$_]"
+                    $Matched = $true
+                }
+            }
+
+            # Output matching mod lists
+            if ($Matched) {
+                Write-Verbose "[$($ModList.Name)] included in output"
+                $ModList
+            }
         }
 
         else {
