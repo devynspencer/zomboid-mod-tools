@@ -10,7 +10,7 @@ function Find-ZomboidMod {
         # Project Zomboid mod directory to resolve. Workshop mods have a different
         # path structure, as they are stored under a Steam Workshop id.
         [ValidateSet('User', 'Local', 'Workshop')]
-        $Location = 'User',
+        $Location = 'User'
     )
 
     $ChildParams = @{
