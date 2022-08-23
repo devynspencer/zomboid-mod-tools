@@ -14,12 +14,19 @@ function Get-ZomboidModLocation {
 
     foreach ($LocationName in $Location) {
         $Path = $BaseLocations[$LocationName]
+        $Exists = Test-Path -Path $Path
+
+        if ($Exists) {
+            # Collect directory statistics
+            $ModDirectories = Get-ChildItem -Path $Path -Directory
+        }
 
         # Build output object
         [pscustomobject] @{
             Name = $LocationName
             Path = $Path
-            Exists = Test-Path -Path $Path
+            ModCount = $ModDirectories.Count
+            Exists = $Exists
         }
     }
 }
