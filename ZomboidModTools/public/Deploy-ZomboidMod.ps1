@@ -101,7 +101,7 @@ function Deploy-ZomboidMod {
     # Determine directory name based on mod id
     switch ($DeployLocation) {
         'User' {
-            $DeploymentPath = [IO.Path]::Join($UserModsRoot, $ModInfo.Id)
+            $DeploymentPath = [IO.Path]::Join($UserModsRoot, ($ModInfo.Id -replace '\W'))
         }
 
         'Local' {
