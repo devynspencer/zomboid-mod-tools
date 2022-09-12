@@ -73,6 +73,7 @@
         'Start-Zomboid'
         'Show-ZomboidLog'
         'Install-SteamCmd'
+        'Install-LuaCheck'
         'Get-ZomboidModLocation'
         'Get-ZomboidModList'
     )
