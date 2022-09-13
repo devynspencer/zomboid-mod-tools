@@ -12,6 +12,7 @@ function Backup-ZomboidProfile {
         [switch]
         $Force
     )
+
     # Backup everything by default
     if ($PSBoundParameters.ContainsKey('Item')) {
         $Files = Resolve-ZomboidUserFile -Name $Item
