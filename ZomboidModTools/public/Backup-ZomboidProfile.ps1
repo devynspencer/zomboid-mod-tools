@@ -10,7 +10,10 @@ function Backup-ZomboidProfile {
         $Item,
 
         [switch]
-        $Force
+        $Force,
+
+        [switch]
+        $PassThru
     )
 
     # Backup everything by default
@@ -37,5 +40,9 @@ function Backup-ZomboidProfile {
     Write-Verbose "Creating backup directory for backup [$Name] with [$($Files.Count)] files"
     foreach ($File in $Files) {
         Copy-Item -Path $File -Destination "$DestinationPath\"
+    }
+
+    if ($PassThru) {
+        Get-ChildItem -Path $DestinationPath
     }
 }
