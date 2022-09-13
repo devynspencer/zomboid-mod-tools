@@ -7,7 +7,10 @@ function Backup-ZomboidProfile {
         $Name,
 
         [ZomboidUserFile[]]
-        $Item
+        $Item,
+
+        [switch]
+        $Force
     )
     # Backup everything by default
     if ($PSBoundParameters.ContainsKey('Item')) {
@@ -24,6 +27,12 @@ function Backup-ZomboidProfile {
         Write-Verbose "Backup directory [$DestinationPath] not found, creating..."
         New-Item -Path $DestinationPath -ItemType Directory | Out-Null
     }
+
+    elseif ($Force) {
+        Write-Verbose "Backup directory [$DestinationPath] exists, removing..."
+        Remove-Item -Path $DestinationPath -Force -Recurse | Out-Null
+    }
+
     Write-Verbose "Creating backup directory for backup [$Name] with [$($Files.Count)] files"
     foreach ($File in $Files) {
         Copy-Item -Path $File -Destination "$DestinationPath\"
