@@ -19,6 +19,11 @@ function Backup-ZomboidProfile {
     }
 
     $DestinationPath = [IO.Path]::Combine("$env:USERPROFILE", 'Zomboid', 'backups', 'ZomboidModTools', $Name)
+
+    if (!(Test-Path -Path $DestinationPath)) {
+        Write-Verbose "Backup directory [$DestinationPath] not found, creating..."
+        New-Item -Path $DestinationPath -ItemType Directory | Out-Null
+    }
     Write-Verbose "Creating backup directory for backup [$Name] with [$($Files.Count)] files"
     foreach ($File in $Files) {
         Copy-Item -Path $File -Destination "$DestinationPath\"
