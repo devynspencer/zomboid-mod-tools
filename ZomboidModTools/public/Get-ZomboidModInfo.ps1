@@ -38,11 +38,11 @@ function Get-ZomboidModInfo {
                 Uri = $null
             }
 
+            # Parse the mod.info file
             $SelectParams = @{
                 LiteralPath = $ModInfoFile
             }
 
-            # Expect some of the mod.info files to not contain all properties
             $Matches = [ordered] @{
                 Id = (Select-String @SelectParams -Pattern 'id=(.*)').Matches
                 Name = (Select-String @SelectParams -Pattern 'name=(.*)').Matches
@@ -70,6 +70,7 @@ function Get-ZomboidModInfo {
                 }
             }
 
+            # Return the output object
             [pscustomobject] $ModInfo
         }
     }
