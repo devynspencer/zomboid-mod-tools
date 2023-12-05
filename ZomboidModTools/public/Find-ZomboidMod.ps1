@@ -26,11 +26,13 @@ function Find-ZomboidMod {
     foreach ($File in $ModInfoFiles) {
         $ModInfo = Get-ZomboidModInfo -Path $File.FullName
 
+        # Handle filtering by ModName parameter, if specified
         if ($PSBoundParameters.ContainsKey('ModName') -and ($ModInfo.Name -match $ModName)) {
             Write-Verbose "Found mod matching [$ModName]: $($ModInfo.Name)`n"
             $ModInfo
         }
 
+        # Return output object
         else {
             $ModInfo
         }
