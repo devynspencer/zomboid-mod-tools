@@ -26,6 +26,11 @@ function Get-ZomboidModInfo {
 
     process {
         foreach ($ModInfoFile in $Path) {
+            # Build the output object with known mod.info properties
+            $ModInfo = @{
+                Path = $ModInfoFile
+            }
+
             $SelectParams = @{
                 LiteralPath = $ModInfoFile
             }
@@ -38,10 +43,6 @@ function Get-ZomboidModInfo {
                 MinimumVersion = (Select-String @SelectParams -Pattern 'minVer=(.*)').Matches
                 Description = (Select-String @SelectParams -Pattern 'description=(.*)').Matches
                 Uri = (Select-String @SelectParams -Pattern 'url=(.*)').Matches
-            }
-
-            $ModInfo = @{
-                Path = $ModInfoFile
             }
 
             # Skip null properties to avoid scary errors
