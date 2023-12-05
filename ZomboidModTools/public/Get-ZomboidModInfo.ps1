@@ -30,6 +30,12 @@ function Get-ZomboidModInfo {
             $ModInfo = @{
                 Path = $ModInfoFile
                 ModDirectory = (Split-Path -LiteralPath $ModInfoFile)
+                Id = $null
+                Name = $null
+                Description = $null
+                MinimumVersion = $null
+                Poster = $null
+                Uri = $null
             }
 
             $SelectParams = @{
