@@ -35,8 +35,13 @@ function Get-ZomboidModInfo {
                 Name = $null
                 Description = $null
                 MinimumVersion = $null
-                Poster = $null
+                MaximumVersion = $null
+                RequiredMods = @()
                 Uri = $null
+                Poster = $null
+                TexturePacks = @()
+                TileDefinitions = @()
+            }
 
             # Determine root directory for Steam workshop item, if applicable
             if ($ModInfo.ModDirectory -match '\\steamapps\\workshop\\content\\108600\\') {
