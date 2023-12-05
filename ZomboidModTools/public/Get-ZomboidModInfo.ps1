@@ -58,8 +58,12 @@ function Get-ZomboidModInfo {
                 Name = (Select-String @SelectParams -Pattern 'name=(.*)').Matches
                 Description = (Select-String @SelectParams -Pattern 'description=(.*)').Matches
                 MinimumVersion = (Select-String @SelectParams -Pattern 'versionMin=(.*)').Matches
-                Poster = (Select-String @SelectParams -Pattern 'poster=(.*)').Matches
+                MaximumVersion = (Select-String @SelectParams -Pattern 'versionMax=(.*)').Matches
+                RequiredMods = (Select-String @SelectParams -Pattern 'require=(.*)').Matches
                 Uri = (Select-String @SelectParams -Pattern 'url=(.*)').Matches
+                Poster = (Select-String @SelectParams -Pattern 'poster=(.*)').Matches
+                TexturePacks = (Select-String @SelectParams -Pattern 'pack=(.*)').Matches
+                TileDefinitions = (Select-String @SelectParams -Pattern 'tiledef=(.*)').Matches
             }
 
             # Skip null properties to avoid scary errors
