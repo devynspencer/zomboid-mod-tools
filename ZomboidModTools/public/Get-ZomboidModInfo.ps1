@@ -29,6 +29,7 @@ function Get-ZomboidModInfo {
             # Build the output object with known mod.info properties
             $ModInfo = @{
                 Path = $ModInfoFile
+                ModDirectory = (Split-Path -LiteralPath $ModInfoFile)
             }
 
             $SelectParams = @{
