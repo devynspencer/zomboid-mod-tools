@@ -28,10 +28,6 @@ function Find-ZomboidMod {
 
         if ($PSBoundParameters.ContainsKey('ModName') -and ($ModInfo.Name -match $ModName)) {
             Write-Verbose "Found mod matching [$ModName]: $($ModInfo.Name)`n"
-            Write-Verbose "[$ModName] info file: $($File.FullName)"
-            Write-Verbose "[$ModName] directory: $ModDirectory"
-            Write-Verbose "`n$($ModInfo | ConvertTo-Json)"
-
             $ModInfo
         }
 
