@@ -30,12 +30,17 @@ function Get-ZomboidModInfo {
             $ModInfo = @{
                 Path = $ModInfoFile
                 ModDirectory = (Split-Path -LiteralPath $ModInfoFile)
+                WorkshopDirectory = $null
                 Id = $null
                 Name = $null
                 Description = $null
                 MinimumVersion = $null
                 Poster = $null
                 Uri = $null
+
+            # Determine root directory for Steam workshop item, if applicable
+            if ($ModInfo.ModDirectory -match '\\steamapps\\workshop\\content\\108600\\') {
+                $ModInfo.WorkshopDirectory = (Get-Item -Path $ModInfo.ModDirectory).Parent.Parent
             }
 
             # Parse the mod.info file
