@@ -46,9 +46,9 @@ function Get-ZomboidModInfo {
             $Matches = [ordered] @{
                 Id = (Select-String @SelectParams -Pattern 'id=(.*)').Matches
                 Name = (Select-String @SelectParams -Pattern 'name=(.*)').Matches
-                Poster = (Select-String @SelectParams -Pattern 'poster=(.*)').Matches
-                MinimumVersion = (Select-String @SelectParams -Pattern 'minVer=(.*)').Matches
                 Description = (Select-String @SelectParams -Pattern 'description=(.*)').Matches
+                MinimumVersion = (Select-String @SelectParams -Pattern 'versionMin=(.*)').Matches
+                Poster = (Select-String @SelectParams -Pattern 'poster=(.*)').Matches
                 Uri = (Select-String @SelectParams -Pattern 'url=(.*)').Matches
             }
 
