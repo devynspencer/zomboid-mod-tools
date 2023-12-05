@@ -28,7 +28,7 @@ function Get-ZomboidModInfo {
         foreach ($ModInfoFile in $Path) {
             # Build the output object with known mod.info properties
             $ModInfo = @{
-                Path = $ModInfoFile
+                FilePath = $ModInfoFile
                 ModDirectory = (Split-Path -LiteralPath $ModInfoFile)
                 WorkshopDirectory = $null
                 Id = $null
