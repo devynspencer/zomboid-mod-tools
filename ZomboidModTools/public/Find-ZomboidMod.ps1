@@ -2,10 +2,16 @@
 . "$PSScriptRoot\Get-ZomboidModInfo.ps1"
 
 function Find-ZomboidMod {
+    [CmdletBinding(DefaultParameterSetName = 'All')]
     param (
         # Name or (part of the name) of a mod. Should match the name of the mod directory
+        [Parameter(Mandatory, ParameterSetName = 'ByModName')]
         [ValidateNotNullOrEmpty()]
         $ModName,
+
+        [Parameter(Mandatory, ParameterSetName = 'ByWorkshopId')]
+        [ValidateNotNullOrEmpty()]
+        $WorkshopId,
 
         # Project Zomboid mod directory to resolve. Workshop mods have a different
         # path structure, as they are stored under a Steam Workshop id.
@@ -26,15 +32,28 @@ function Find-ZomboidMod {
     foreach ($File in $ModInfoFiles) {
         $ModInfo = Get-ZomboidModInfo -Path $File.FullName
 
-        # Handle filtering by ModName parameter, if specified
-        if ($PSBoundParameters.ContainsKey('ModName') -and ($ModInfo.Name -match $ModName)) {
-            Write-Verbose "Found mod matching [$ModName]: $($ModInfo.Name)`n"
-            $ModInfo
-        }
 
         # Return output object
-        else {
-            $ModInfo
+        switch ($PSCmdlet.ParameterSetName) {
+            # Handle filtering by ModName parameter
+            'ByModName' {
+                if ($ModInfo.Name -match $ModName) {
+                    Write-Verbose "Found mod matching [$ModName]: $($ModInfo.Name)`n"
+                    $ModInfo
+                }
+            }
+
+            # Handle filtering by WorkshopId parameter
+            'ByWorkshopId' {
+                if ($ModInfo.WorkshopId -eq $WorkshopId) {
+                    Write-Verbose "Found mod matching Steam workshop id [$WorkshopId]: $($ModInfo.Name)`n"
+                    $ModInfo
+                }
+            }
+
+            default {
+                $ModInfo
+            }
         }
     }
 }
