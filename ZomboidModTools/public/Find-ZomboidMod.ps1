@@ -25,7 +25,6 @@ function Find-ZomboidMod {
 
     foreach ($File in $ModInfoFiles) {
         $ModInfo = Get-ZomboidModInfo -Path $File.FullName
-        $ModDirectory = Split-Path -Path $File.FullName -Parent
 
         if ($PSBoundParameters.ContainsKey('ModName') -and ($ModInfo.Name -match $ModName)) {
             Write-Verbose "Found mod matching [$ModName]: $($ModInfo.Name)`n"
