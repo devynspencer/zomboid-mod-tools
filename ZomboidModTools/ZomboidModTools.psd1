@@ -42,12 +42,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules = @(
-        @{ ModuleName = 'BuildHelpers'; ModuleVersion = '2.0.16' }
-        @{ ModuleName = 'InvokeBuild'; ModuleVersion = '5.9.9.0' }
-        @{ ModuleName = 'Pester'; ModuleVersion = '5.3.1' }
-        @{ ModuleName = 'Plaster'; ModuleVersion = '1.1.3' }
-    )
+    # RequiredModules = @()
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @()
