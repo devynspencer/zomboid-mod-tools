@@ -46,17 +46,17 @@ function Get-ZomboidModInfo {
 
             # Skip null properties to avoid scary errors
             foreach ($Property in $Matches.Keys) {
-                if ($Matches."$Property".Groups) {
-                    $Value = $Matches.$Property | % { $_.Groups[1].Value }
+                if ($Matches[$Property].Groups) {
+                    $Value = $Matches[$Property] | % { $_.Groups[1].Value }
 
                     # Join multiple descriptions together
                     switch ($Property) {
                         'Description' {
-                            $ModInfo.$Property = $Value -join ''
+                            $ModInfo[$Property] = $Value -join ''
                         }
 
                         default {
-                            $ModInfo.$Property = $Value
+                            $ModInfo[$Property] = $Value
                         }
                     }
                 }
