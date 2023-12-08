@@ -105,7 +105,7 @@ function Deploy-ZomboidMod {
         }
 
         'Local' {
-            throw 'Deployment location not yet implemented'
+            $DeploymentPath = [IO.Path]::Join($LocalModsRoot, ($ModInfo.Id -replace '\W'))
         }
 
         'Workshop' {
