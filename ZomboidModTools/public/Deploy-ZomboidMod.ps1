@@ -115,6 +115,7 @@ function Deploy-ZomboidMod {
 
     $DeploymentRoot = Split-Path -Path $DeploymentPath
 
+    Write-Verbose "Deployment path: [$DeploymentPath]"
     Write-Verbose "Deploying mod [$($ModInfo.Name)] to [$DeploymentRoot]"
 
     # Verify deployment location is suitable
