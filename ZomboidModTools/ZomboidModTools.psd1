@@ -96,13 +96,7 @@
     PrivateData = @{
 
         PSData = @{
-
-            ExternalModuleDependencies = @(
-                'BuildHelpers'
-                'InvokeBuild'
-                'Pester'
-                'Plaster'
-            )
+            # ExternalModuleDependencies = @()
 
             # Tags applied to this module. These help with module discovery in online galleries.
             Tags = @(
